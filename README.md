@@ -63,7 +63,7 @@ edit routers/router.go
 package routers
 
 import (
-	"github.com"/luffyke/goxapi
+	"github.com/luffyke/goxapi"
 )
 
 func init() {
