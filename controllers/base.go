@@ -8,14 +8,14 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
 
-	"manu-number-server/models/api"
+	"github.com/luffyke/goxapi/models/api"
 )
-
-var regControllers map[string]interface{}
 
 type BaseController struct {
 	beego.Controller
 }
+
+var regControllers map[string]interface{} = make(map[string]interface{})
 
 func (this *BaseController) Post() {
 	logs.Info("request:", string(this.Ctx.Input.RequestBody))
@@ -27,15 +27,15 @@ func (this *BaseController) Post() {
 		response.State = *api.JsonError
 	} else {
 		response.Id = request.Id
-		// 验证request
+		// valid request
 
-		// 获取Data
+		// get Data
 
-		// 获取controller和method
+		// get controller and get method
 		controller, method := this.Ctx.Input.Param(":controller"), this.Ctx.Input.Param(":method")
 		controllerName := regControllers[controller]
 		if controllerName == nil {
-			logs.Error("controller not found:", controller)
+			logs.Error("controller is not registered:", controller)
 			response.State = *api.Error
 		} else {
 			method = formatMethod(method)
@@ -48,16 +48,14 @@ func (this *BaseController) Post() {
 			out := make([]reflect.Value, 1)
 			out = m.Call(in)
 			response = out[0].Interface().(api.ApiResponse)
-			//this.Data["json"] = map[string]string{"id": request.Id}
 		}
 	}
 	this.Data["json"] = response
 	this.ServeJSON()
 }
 
-func init() {
-	regControllers = make(map[string]interface{})
-	regControllers["app"] = AppController{}
+func RegController(name string, controller beego.Controller) {
+	regControllers[name] = controller
 }
 
 func formatMethod(method string) string {
