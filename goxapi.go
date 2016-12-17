@@ -1,8 +1,6 @@
 package goxapi
 
 import (
-	"github.com/luffyke/goxapi/controllers"
-
 	"github.com/astaxie/beego"
 )
 
@@ -11,5 +9,5 @@ const (
 )
 
 func Router() {
-	beego.Router("/v1/:controller/:method", &controllers.BaseController{}, "*:Post")
+	beego.Router("/v1/:controller/:method", &BaseController{}, "*:Post")
 }

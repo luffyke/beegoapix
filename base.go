@@ -1,4 +1,4 @@
-package controllers
+package goxapi
 
 import (
 	"encoding/json"
@@ -8,7 +8,7 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
 
-	"github.com/luffyke/goxapi/models/api"
+	"github.com/luffyke/goxapi/api"
 )
 
 type BaseController struct {
@@ -54,7 +54,7 @@ func (this *BaseController) Post() {
 	this.ServeJSON()
 }
 
-func RegController(name string, controller beego.Controller) {
+func RegController(name string, controller interface{}) {
 	regControllers[name] = controller
 }
 
