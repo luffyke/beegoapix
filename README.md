@@ -1,6 +1,11 @@
 ## goxapi
 goxapi is beego extension api framework, to development more faster api service.
 
+## Install
+```
+go get github.com/luffyke/goxapi
+```
+
 ## Design
 ### BaseController
 1. accepte all client http request, reflect and call sub-controller to handle request.
@@ -9,7 +14,62 @@ goxapi is beego extension api framework, to development more faster api service.
 
 ### apiRequest
 
-#### demo
+### apiResponse
+
+## Demo
+#### new api project
+```
+bee new helloworld
+```
+#### edit router.go
+edit routers/router.go
+```
+package routers
+
+import (
+	"github.com/luffyke/goxapi"
+)
+
+func init() {
+	goxapi.Router()
+	goxapi.RegController("app", controllers.AppController{})
+}
+```
+
+#### write your business controller
+```
+package controllers
+
+import (
+	"github.com/luffyke/goxapi/api"
+
+	"github.com/astaxie/beego/logs"
+)
+
+type AppController struct {
+}
+
+func (this *AppController) CheckVersion(request api.ApiRequest) api.ApiResponse {
+	logs.Debug(request.Id)
+	logs.Debug(request.Data["versionCode"])
+	var response api.ApiResponse
+	response.Data = make(map[string]interface{})
+	response.Data["versionName"] = "version name 1.0"
+	return response
+}
+```
+
+#### run the server
+```
+bee run
+```
+
+#### post the request
+```
+http://localhost:8080/v1/app/check-version
+```
+
+#### request
 ```
 {
   "id":"12345678",
@@ -39,9 +99,7 @@ goxapi is beego extension api framework, to development more faster api service.
 }
 ```
 
-### apiResponse
-
-#### demo
+##### response
 ```
 {
     "state": {
@@ -51,44 +109,5 @@ goxapi is beego extension api framework, to development more faster api service.
     "data": {
         "versionName": "version name 1.0"
     }
-}
-```
-
-## Demo
-```
-bee new helloworld
-```
-edit routers/router.go
-```
-package routers
-
-import (
-	"github.com/luffyke/goxapi"
-)
-
-func init() {
-	goxapi.Router()
-}
-```
-write your business controller
-```
-package controllers
-
-import (
-	"github.com/luffyke/goxapi/models/api"
-
-	"github.com/astaxie/beego/logs"
-)
-
-type AppController struct {
-}
-
-func (this *AppController) CheckVersion(request api.ApiRequest) api.ApiResponse {
-	logs.Debug(request.Id)
-	logs.Debug(request.Data["versionCode"])
-	var response api.ApiResponse
-	response.Data = make(map[string]interface{})
-	response.Data["versionName"] = "version name 1.0"
-	return response
 }
 ```
