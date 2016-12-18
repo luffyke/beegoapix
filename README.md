@@ -21,8 +21,8 @@ go get github.com/luffyke/goxapi
 ```
 bee new helloworld
 ```
+
 #### edit router.go
-edit routers/router.go
 ```
 package routers
 
