@@ -21,22 +21,28 @@ func (this *BaseController) Post() {
 	logs.Info("request:", string(this.Ctx.Input.RequestBody))
 	var request api.ApiRequest
 	var response api.ApiResponse
+	defer func() {
+		response.State = recover().(api.State)
+		this.Data["json"] = response
+		this.ServeJSON()
+	}()
+
 	err := json.Unmarshal(this.Ctx.Input.RequestBody, &request)
 	if err != nil {
 		logs.Error("json error:", err)
-		response.State = api.JsonError
+		//response.State = api.JsonError
+		panic(api.JsonError)
 	} else {
 		response.Id = request.Id
 		// valid request
-
-		// get Data
 
 		// get controller and get method
 		controller, method := this.Ctx.Input.Param(":controller"), this.Ctx.Input.Param(":method")
 		controllerName := regControllers[controller]
 		if controllerName == nil {
 			logs.Error("controller not registered:", controller)
-			response.State = api.Error
+			//response.State = api.Error
+			panic(api.Error)
 		} else {
 			method = formatMethod(method)
 			// reflect
@@ -45,7 +51,8 @@ func (this *BaseController) Post() {
 			m := c.MethodByName(method)
 			if !m.IsValid() {
 				logs.Error("method not found:", method)
-				response.State = api.Error
+				//response.State = api.Error
+				panic(api.Error)
 			} else {
 				in := make([]reflect.Value, 1)
 				in[0] = reflect.ValueOf(request)
