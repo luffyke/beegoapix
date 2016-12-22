@@ -35,7 +35,7 @@ func (this *BaseController) Post() {
 		controller, method := this.Ctx.Input.Param(":controller"), this.Ctx.Input.Param(":method")
 		controllerName := regControllers[controller]
 		if controllerName == nil {
-			logs.Error("controller is not registered:", controller)
+			logs.Error("controller not registered:", controller)
 			response.State = api.Error
 		} else {
 			method = formatMethod(method)
@@ -43,11 +43,17 @@ func (this *BaseController) Post() {
 			t := reflect.TypeOf(controllerName)
 			c := reflect.New(t)
 			m := c.MethodByName(method)
-			in := make([]reflect.Value, 1)
-			in[0] = reflect.ValueOf(request)
-			out := make([]reflect.Value, 1)
-			out = m.Call(in)
-			response = out[0].Interface().(api.ApiResponse)
+			if !m.IsValid() {
+				logs.Error("method not found:", method)
+				response.State = api.Error
+			} else {
+				in := make([]reflect.Value, 1)
+				in[0] = reflect.ValueOf(request)
+				out := make([]reflect.Value, 1)
+				out = m.Call(in)
+				response = out[0].Interface().(api.ApiResponse)
+				//apiError := out[1].Interface().(api.ApiError)
+			}
 		}
 	}
 	this.Data["json"] = response
