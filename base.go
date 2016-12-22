@@ -24,7 +24,7 @@ func (this *BaseController) Post() {
 	err := json.Unmarshal(this.Ctx.Input.RequestBody, &request)
 	if err != nil {
 		logs.Error("json error:", err)
-		response.State = *api.JsonError
+		response.State = api.JsonError
 	} else {
 		response.Id = request.Id
 		// valid request
@@ -36,7 +36,7 @@ func (this *BaseController) Post() {
 		controllerName := regControllers[controller]
 		if controllerName == nil {
 			logs.Error("controller is not registered:", controller)
-			response.State = *api.Error
+			response.State = api.Error
 		} else {
 			method = formatMethod(method)
 			// reflect

@@ -14,7 +14,7 @@ type State struct {
 }
 
 var (
-	Successful = &State{0, "请求成功"}
-	Error      = &State{100001, "服务端错误"}
-	JsonError  = &State{100002, "请求数据错误"}
+	Successful = State{0, "请求成功"}
+	Error      = State{100001, "服务端错误"}
+	JsonError  = State{100002, "请求数据错误"}
 )
