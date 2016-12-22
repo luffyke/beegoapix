@@ -22,9 +22,12 @@ func (this *BaseController) Post() {
 	var request api.ApiRequest
 	var response api.ApiResponse
 	defer func() {
-		response.State = recover().(api.State)
-		this.Data["json"] = response
-		this.ServeJSON()
+		state := recover()
+		if state != nil {
+			response.State = state.(api.State)
+			this.Data["json"] = response
+			this.ServeJSON()
+		}
 	}()
 
 	err := json.Unmarshal(this.Ctx.Input.RequestBody, &request)
