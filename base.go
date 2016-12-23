@@ -22,9 +22,17 @@ func (this *BaseController) Post() {
 	var request api.ApiRequest
 	var response api.ApiResponse
 	defer func() {
-		state := recover()
-		if state != nil {
-			response.State = state.(api.State)
+		if err := recover(); err != nil {
+			//logs.Debug(reflect.ValueOf(err).Kind())
+			if reflect.Struct == reflect.ValueOf(err).Kind() {
+				_, ok := err.(api.State)
+				if ok {
+					response.State = err.(api.State)
+				}
+			} else {
+				logs.Error("server error!", err)
+				response.State = api.Error
+			}
 			this.Data["json"] = response
 			this.ServeJSON()
 		}
