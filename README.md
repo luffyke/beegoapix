@@ -12,9 +12,9 @@ go get github.com/luffyke/goxapi
 2. log request and response
 3. error handle
 
-### apiRequest
+### ApiRequest
 
-### apiResponse
+### ApiResponse
 
 ## Demo
 #### new api project
