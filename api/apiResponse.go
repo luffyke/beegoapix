@@ -3,13 +3,13 @@ package api
 type ApiResponse struct {
 	Id    string                 `json:"id,omitempty"`
 	State State                  `json:"state"`
-	Page  *Page                  `json:"page,omitempty"`
+	Page  *Page                  `json:"page,omitempty"` // default nil for pointer
 	User  *User                  `json:"user,omitempty"`
 	Data  map[string]interface{} `json:"data,omitempty"`
 }
 
 type State struct {
-	Code int64  `json:"code"`
+	Code int    `json:"code"`
 	Msg  string `json:"msg"`
 }
 
