@@ -1,5 +1,5 @@
 ## goxapi
-goxapi is beego extension api framework, to development more faster api service.
+goxapi is beego extension api framework, to develop more faster api service.
 
 ## Install
 ```
@@ -7,19 +7,15 @@ go get github.com/luffyke/goxapi
 ```
 
 ## Design
-### BaseController
+### BaseController(base.go)
 1. accepte all client http request, reflect and call sub-controller to handle request.
 2. log request and response
-3. error handle
-
-### ApiRequest
-
-### ApiResponse
+3. error handling
 
 ## Demo
 #### new api project
 ```
-bee new helloworld
+bee api helloworld
 ```
 
 #### edit router.go
@@ -32,6 +28,7 @@ import (
 
 func init() {
 	goxapi.Router()
+	// add your business path mapping
 	goxapi.RegController("app", controllers.AppController{})
 }
 ```
@@ -49,10 +46,9 @@ import (
 type AppController struct {
 }
 
-func (this *AppController) CheckVersion(request api.ApiRequest) api.ApiResponse {
+func (this *AppController) CheckVersion(request api.ApiRequest) (response api.ApiResponse) {
 	logs.Debug(request.Id)
 	logs.Debug(request.Data["versionCode"])
-	var response api.ApiResponse
 	response.Data = make(map[string]interface{})
 	response.Data["versionName"] = "version name 1.0"
 	return response
@@ -86,8 +82,7 @@ http://localhost:8080/v1/app/check-version
   },
   "page":{
   	"page":1,
-  	"size":10,
-  	"totalSize":20
+  	"size":10
   },
   "user":{
     "uid":123,
