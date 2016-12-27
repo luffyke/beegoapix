@@ -8,7 +8,7 @@ go get github.com/luffyke/goxapi
 
 ## Design
 ### BaseController(base.go)
-1. accepte all client http request, reflect and call sub-controller to handle request.
+1. accept all client http request, reflect and call sub-controller to handle request.
 2. log request and response
 3. error handling
 
