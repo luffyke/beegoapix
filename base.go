@@ -48,7 +48,11 @@ func (this *BaseController) Post() {
 		// valid request
 
 		// get controller and get method
-		controller, method := this.Ctx.Input.Param(":controller"), this.Ctx.Input.Param(":method")
+		version, controller, method := this.Ctx.Input.Param(":version"), this.Ctx.Input.Param(":controller"), this.Ctx.Input.Param(":method")
+		// default version v1
+		if version != "v1" {
+			controller = controller + version
+		}
 		controllerName := regControllers[controller]
 		if controllerName == nil {
 			logs.Error("controller not registered:", controller)
