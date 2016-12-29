@@ -8,9 +8,13 @@ go get github.com/luffyke/goxapi
 
 ## Design
 ### BaseController(base.go)
-1. accept all client http request, reflect and call sub-controller to handle request.
-2. log request and response
-3. error handling
+1. accept all client http request, reflect and call sub-controller to handle request(v0.1)
+2. log request and response(v0.1)
+3. error handling(v0.1)
+4. version control(v0.2)
+5. combine controller
+6. cache(etag)
+7. priviledge
 
 ## Demo
 #### new api project
@@ -85,7 +89,7 @@ http://localhost:8080/v1/app/check-version
   	"size":10
   },
   "user":{
-    "uid":123,
+    "uid":"123",
     "sid":"abc"
   },
   "data":{
@@ -105,4 +109,28 @@ http://localhost:8080/v1/app/check-version
         "versionName": "version name 1.0"
     }
 }
+```
+
+## Api version control
+router.go, combine controller name(app) with version(v2) to a new controller(AppV2Controller)
+```
+goxapi.RegController("appv2", controllers.AppV2Controller{})
+```
+
+```
+type AppV2Controller struct {
+}
+func (this *AppV2Controller) CheckVersion(request api.ApiRequest) api.ApiResponse {
+	logs.Debug(request.Id)
+	logs.Debug(request.Data["versionCode"])
+	var response api.ApiResponse
+	response.Data = make(map[string]interface{})
+	response.Data["versionName"] = "version name 2.0"
+	return response
+}
+```
+
+post request
+```
+http://localhost:8080/v2/app/check-version
 ```
