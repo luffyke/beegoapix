@@ -1,4 +1,4 @@
-package goxapi
+package beegoapix
 
 import (
 	"encoding/json"
@@ -8,7 +8,7 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
 
-	"github.com/luffyke/goxapi/api"
+	"github.com/luffyke/beegoapix/api"
 )
 
 type BaseController struct {

@@ -1,9 +1,9 @@
-## goxapi
-goxapi is beego extension api framework, to develop more faster api service.
+## beegoapix
+beegoapix is beego api extension framework, to develop more faster api service.
 
 ## Install
 ```
-go get github.com/luffyke/goxapi
+go get github.com/luffyke/beegoapix
 ```
 
 ## Design
@@ -23,13 +23,13 @@ bee api helloworld
 package routers
 
 import (
-	"github.com/luffyke/goxapi"
+	"github.com/luffyke/beegoapix"
 )
 
 func init() {
-	goxapi.Router()
+	beegoapix.Router()
 	// add your business path mapping
-	goxapi.RegController("app", controllers.AppController{})
+	beegoapix.RegController("app", controllers.AppController{})
 }
 ```
 
@@ -38,7 +38,7 @@ func init() {
 package controllers
 
 import (
-	"github.com/luffyke/goxapi/api"
+	"github.com/luffyke/beegoapix/api"
 
 	"github.com/astaxie/beego/logs"
 )

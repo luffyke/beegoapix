@@ -1,4 +1,4 @@
-package goxapi
+package beegoapix
 
 import (
 	"github.com/astaxie/beego"
