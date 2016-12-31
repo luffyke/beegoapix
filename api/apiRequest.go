@@ -17,3 +17,12 @@ type Client struct {
 	Ch       string            `json:"ch"`
 	Ex       map[string]string `json:"ex"`
 }
+
+func (this ApiRequest) CheckData(keys ...string) bool {
+	for _, key := range keys {
+		if _, ok := this.Data[key]; !ok {
+			return false
+		}
+	}
+	return true
+}

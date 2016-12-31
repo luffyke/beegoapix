@@ -9,5 +9,5 @@ const (
 )
 
 func Router() {
-	beego.Router("/v1/:controller/:method", &BaseController{}, "*:Post")
+	beego.Router("/:version/:controller/:method", &BaseController{}, "*:Post")
 }

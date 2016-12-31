@@ -15,7 +15,8 @@ type BaseController struct {
 	beego.Controller
 }
 
-var regControllers map[string]interface{} = make(map[string]interface{})
+var regControllers = make(map[string]interface{})
+var loginPaths = make(map[string]int)
 
 func (this *BaseController) Post() {
 	logs.Info("request:", string(this.Ctx.Input.RequestBody))
@@ -47,8 +48,20 @@ func (this *BaseController) Post() {
 		response.Id = request.Id
 		// valid request
 
+		// valid session
+		//logs.Info("url", this.Ctx.Input.URL())
+		if _, ok := loginPaths[this.Ctx.Input.URL()]; ok {
+			if request.User.Uid == "" || request.User.Sid == "" {
+				panic(api.SessionError)
+			}
+		}
 		// get controller and get method
-		controller, method := this.Ctx.Input.Param(":controller"), this.Ctx.Input.Param(":method")
+		version, controller, method := this.Ctx.Input.Param(":version"), this.Ctx.Input.Param(":controller"), this.Ctx.Input.Param(":method")
+		// get controller
+		// default version v1
+		if version != "v1" {
+			controller = controller + version
+		}
 		controllerName := regControllers[controller]
 		if controllerName == nil {
 			logs.Error("controller not registered:", controller)
@@ -80,6 +93,12 @@ func (this *BaseController) Post() {
 
 func RegController(name string, controller interface{}) {
 	regControllers[name] = controller
+}
+
+func SetLoginPaths(paths ...string) {
+	for _, path := range paths {
+		loginPaths[path] = 1
+	}
 }
 
 func formatMethod(method string) string {
