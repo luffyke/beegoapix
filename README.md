@@ -12,9 +12,9 @@ go get github.com/luffyke/beegoapix
 2. log request and response(v0.1)
 3. error handling(v0.1)
 4. version control(v0.2)
-5. combine controller
-6. cache(etag)
-7. priviledge
+5. priviledge(v0.2)
+6. combine controller
+7. cache(etag)
 
 ## Demo
 #### new api project
