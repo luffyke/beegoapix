@@ -6,20 +6,20 @@ beegoapix is beego api extension framework, to develop more faster api service.
 go get github.com/luffyke/beegoapix
 ```
 
-## Design
-### BaseController(base.go)
+## Function
 1. accept all client http request, reflect and call sub-controller to handle request(v0.1)
 2. log request and response(v0.1)
 3. error handling(v0.1)
-4. version control(v0.2)
+4. [version control(v0.2)](https://github.com/luffyke/beegoapix/wiki/API-version-control)
 5. priviledge(v0.2)
 6. combine controller
 7. cache(etag)
 
 ## Demo
+make sure have installed beego and bee tool.
 #### new api project
 ```
-bee api helloworld
+bee api hello
 ```
 
 #### edit router.go
@@ -27,6 +27,7 @@ bee api helloworld
 package routers
 
 import (
+	"hello/controllers"
 	"github.com/luffyke/beegoapix"
 )
 
@@ -109,28 +110,4 @@ http://localhost:8080/v1/app/check-version
         "versionName": "version name 1.0"
     }
 }
-```
-
-## Api version control
-router.go, combine controller name(app) with version(v2) to a new controller(AppV2Controller)
-```
-goxapi.RegController("appv2", controllers.AppV2Controller{})
-```
-
-```
-type AppV2Controller struct {
-}
-func (this *AppV2Controller) CheckVersion(request api.ApiRequest) api.ApiResponse {
-	logs.Debug(request.Id)
-	logs.Debug(request.Data["versionCode"])
-	var response api.ApiResponse
-	response.Data = make(map[string]interface{})
-	response.Data["versionName"] = "version name 2.0"
-	return response
-}
-```
-
-post request
-```
-http://localhost:8080/v2/app/check-version
 ```
