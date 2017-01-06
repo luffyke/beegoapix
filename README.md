@@ -111,3 +111,6 @@ http://localhost:8080/v1/app/check-version
     }
 }
 ```
+
+## Android demo
+please reference to project [beegoapix-android-demo](https://github.com/luffyke/beegoapix-android-demo)
