@@ -1,31 +1,29 @@
-[中文文档](./README.zh-cn.md)
+## 简介
+beegoapix是一个beego API开发框架，用于快速开发API服务。
 
-## beegoapix
-beegoapix is beego api extension framework, to develop more faster api service.
-
-## Install
+## 安装
 ```
 go get github.com/luffyke/beegoapix
 ```
 
-## Function
-1. Http Api handling, accept all client http request, reflect and call sub-controller to handle request(v0.1)
-2. Logging, log request and response(v0.1)
-3. Error handling(v0.1)
-4. [Api version control(v0.2)](https://github.com/luffyke/beegoapix/wiki/API-version-control)
-5. Api authority control(v0.2)
-6. combine controller
-7. cache(etag)
-8. Custom request
+## 功能
+1. 统一API请求处理和返回(v0.1)
+2. 统一日志处理(v0.1)
+3. 异常控制(v0.1)
+4. [API版本控制(v0.2)](https://github.com/luffyke/beegoapix/wiki/API-version-control)
+5. API权限控制(v0.2)
+6. 组合接口
+7. 接口缓存
+8. 自定义请求
 
-## Demo
-make sure have installed beego and bee tool.
-#### new api project
+## 示例
+首先确保安装beego和bee工具。
+#### 新建API项目
 ```
 bee api hello
 ```
 
-#### Edit router.go
+#### 编辑router.go，添加api路由
 ```
 package routers
 
@@ -41,7 +39,7 @@ func init() {
 }
 ```
 
-#### Business controller
+#### 实现业务controller
 ```
 package controllers
 
@@ -63,17 +61,17 @@ func (this *AppController) CheckVersion(request api.ApiRequest) (response api.Ap
 }
 ```
 
-#### Run the server
+#### 运行服务
 ```
 bee run
 ```
 
-#### Post the request
+#### 测试请求
 ```
 http://localhost:8080/v1/app/check-version
 ```
 
-#### Request
+#### 请求示例
 ```
 {
   "id":"12345678",
@@ -102,7 +100,7 @@ http://localhost:8080/v1/app/check-version
 }
 ```
 
-##### Response
+##### 返回
 ```
 {
     "state": {
@@ -115,5 +113,5 @@ http://localhost:8080/v1/app/check-version
 }
 ```
 
-## Android demo
-please reference to project [beegoapix-android-demo](https://github.com/luffyke/beegoapix-android-demo)
+## Android 示例
+参考项目 [beegoapix-android-demo](https://github.com/luffyke/beegoapix-android-demo)
