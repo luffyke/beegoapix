@@ -87,6 +87,10 @@ func (this *BaseController) Post() {
 			}
 		}
 	}
+	b, err := json.Marshal(response)
+	if err == nil {
+		logs.Info("response:", string(b))
+	}
 	this.Data["json"] = response
 	this.ServeJSON()
 }
