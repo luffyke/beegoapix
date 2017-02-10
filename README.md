@@ -117,3 +117,12 @@ http://localhost:8080/v1/app/check-version
 
 ## Android demo
 please reference to project [beegoapix-android-demo](https://github.com/luffyke/beegoapix-android-demo)
+
+## Deploy
+1. setup go environment
+2. install beego and beegoapix
+```
+go get github.com/astaxie/beego
+go get github.com/luffyke/beegoapix
+```
+3. download and run [beego deploy shell](https://gist.github.com/luffyke/790154ec5142abd9fd6245a5fd8b9427)
