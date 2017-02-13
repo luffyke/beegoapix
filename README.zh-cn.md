@@ -17,7 +17,13 @@ go get github.com/luffyke/beegoapix
 8. 自定义请求
 
 ## 示例
-首先确保安装beego和bee工具。
+#### 设置环境
+```bash
+go get github.com/astaxie/beego
+go get github.com/beego/bee
+go get github.com/luffyke/beegoapix
+```
+
 #### 新建API项目
 ```
 bee api hello
@@ -113,9 +119,6 @@ http://localhost:8080/v1/app/check-version
 }
 ```
 
-## Android 示例
-参考项目 [beegoapix-android-demo](https://github.com/luffyke/beegoapix-android-demo)
-
 ## 部署
 1. 设置golang环境
 2. 安装 beego 和 beegoapix
@@ -124,3 +127,6 @@ go get github.com/astaxie/beego
 go get github.com/luffyke/beegoapix
 ```
 3. 下载和运行[beego部署脚本](https://gist.github.com/luffyke/790154ec5142abd9fd6245a5fd8b9427)
+
+## Android 示例
+参考项目 [beegoapix-android-demo](https://github.com/luffyke/beegoapix-android-demo)
