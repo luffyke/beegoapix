@@ -18,8 +18,8 @@ type BaseController struct {
 var regControllers = make(map[string]interface{})
 var loginPaths = make(map[string]int)
 
-func (this *BaseController) Post() {
-	logs.Info("request:", string(this.Ctx.Input.RequestBody))
+func (c *BaseController) Post() {
+	logs.Info("request:", string(c.Ctx.Input.RequestBody))
 	var request api.ApiRequest
 	var response api.ApiResponse
 	defer func() {
@@ -34,12 +34,12 @@ func (this *BaseController) Post() {
 				logs.Error("server error!", err)
 				response.State = api.Error
 			}
-			this.Data["json"] = response
-			this.ServeJSON()
+			c.Data["json"] = response
+			c.ServeJSON()
 		}
 	}()
 
-	err := json.Unmarshal(this.Ctx.Input.RequestBody, &request)
+	err := json.Unmarshal(c.Ctx.Input.RequestBody, &request)
 	if err != nil {
 		logs.Error("json error:", err)
 		//response.State = api.JsonError
@@ -49,14 +49,14 @@ func (this *BaseController) Post() {
 		// valid request
 
 		// valid session
-		//logs.Info("url", this.Ctx.Input.URL())
-		if _, ok := loginPaths[this.Ctx.Input.URL()]; ok {
+		//logs.Info("url", c.Ctx.Input.URL())
+		if _, ok := loginPaths[c.Ctx.Input.URL()]; ok {
 			if request.User.Uid == "" || request.User.Sid == "" {
 				panic(api.SessionError)
 			}
 		}
 		// get controller and get method
-		version, controller, method := this.Ctx.Input.Param(":version"), this.Ctx.Input.Param(":controller"), this.Ctx.Input.Param(":method")
+		version, controller, method := c.Ctx.Input.Param(":version"), c.Ctx.Input.Param(":controller"), c.Ctx.Input.Param(":method")
 		// get controller
 		// default version v1
 		if version != "v1" {
@@ -91,8 +91,8 @@ func (this *BaseController) Post() {
 	if err == nil {
 		logs.Info("response:", string(b))
 	}
-	this.Data["json"] = response
-	this.ServeJSON()
+	c.Data["json"] = response
+	c.ServeJSON()
 }
 
 func RegController(name string, controller interface{}) {
