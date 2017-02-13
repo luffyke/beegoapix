@@ -24,7 +24,6 @@ func (c *BaseController) Post() {
 	var response api.ApiResponse
 	defer func() {
 		if err := recover(); err != nil {
-			//logs.Debug(reflect.ValueOf(err).Kind())
 			if reflect.Struct == reflect.ValueOf(err).Kind() {
 				_, ok := err.(api.State)
 				if ok {
@@ -42,14 +41,12 @@ func (c *BaseController) Post() {
 	err := json.Unmarshal(c.Ctx.Input.RequestBody, &request)
 	if err != nil {
 		logs.Error("json error:", err)
-		//response.State = api.JsonError
 		panic(api.JsonError)
 	} else {
 		response.Id = request.Id
 		// valid request
 
 		// valid session
-		//logs.Info("url", c.Ctx.Input.URL())
 		if _, ok := loginPaths[c.Ctx.Input.URL()]; ok {
 			if request.User.Uid == "" || request.User.Sid == "" {
 				panic(api.SessionError)
@@ -65,7 +62,6 @@ func (c *BaseController) Post() {
 		controllerName := regControllers[controller]
 		if controllerName == nil {
 			logs.Error("controller not registered:", controller)
-			//response.State = api.Error
 			panic(api.Error)
 		} else {
 			method = formatMethod(method)
@@ -75,7 +71,6 @@ func (c *BaseController) Post() {
 			m := c.MethodByName(method)
 			if !m.IsValid() {
 				logs.Error("method not found:", method)
-				//response.State = api.Error
 				panic(api.Error)
 			} else {
 				in := make([]reflect.Value, 1)
