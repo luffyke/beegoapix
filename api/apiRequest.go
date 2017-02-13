@@ -13,7 +13,7 @@ type Client struct {
 	Caller   string            `json:"caller"`
 	Os       string            `json:"os"`
 	Ver      string            `json:"ver"`
-	Platfrom string            `json:"platform"`
+	Platform string            `json:"platform"`
 	Ch       string            `json:"ch"`
 	Ex       map[string]string `json:"ex"`
 }
