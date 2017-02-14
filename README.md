@@ -16,7 +16,6 @@ go get github.com/luffyke/beegoapix
 5. Api authority control(v0.2)
 6. combine controller
 7. cache(etag)
-8. Custom request
 
 ## Demo
 #### setup environment

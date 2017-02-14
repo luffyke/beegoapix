@@ -14,7 +14,6 @@ go get github.com/luffyke/beegoapix
 5. API权限控制(v0.2)
 6. 组合接口
 7. 接口缓存
-8. 自定义请求
 
 ## 示例
 #### 设置环境
