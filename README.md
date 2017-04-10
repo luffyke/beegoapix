@@ -9,23 +9,23 @@ go get github.com/luffyke/beegoapix
 ```
 
 ## Function
-1. Http Api handling, accept all client http request, reflect and call sub-controller to handle request(v0.1)
+1. Http API handling, accept all client http request, reflect and call sub-controller to handle request(v0.1)
 2. Logging, log request and response(v0.1)
 3. Error handling(v0.1)
-4. [Api version control(v0.2)](https://github.com/luffyke/beegoapix/wiki/API-version-control)
-5. Api authority control(v0.2)
-6. combine controller
-7. cache(etag)
+4. [API version control(v0.2)](https://github.com/luffyke/beegoapix/wiki/API-version-control)
+5. API authority control(v0.2)
+6. Combine controller
+7. Cache(etag)
 
 ## Demo
-#### setup environment
+#### Setup environment
 ```bash
 go get github.com/astaxie/beego
-go get github.com/beego/bee
 go get github.com/luffyke/beegoapix
+go get github.com/beego/bee
 ```
 
-#### new api project
+#### New api project
 ```
 bee api hello
 ```
